@@ -1,102 +1,144 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Antonela Art – Iniciar Sesión</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"/>
-  <link rel="stylesheet" href="login.css"/>
-</head>
-<body>
-
-  <!-- LEFT: Brand Panel -->
-  <div class="left-panel">
-    <div class="brand-card">
-      <div class="brand-logo">ANTONELA <span>ART</span></div>
-      <div class="brand-tagline">Atelier de Belleza Exclusivo</div>
-      <div class="dots">
-        <span></span><span></span><span></span>
-      </div>
-      <ul class="features">
-        <li>Reserva de citas online</li>
-        <li>Gestión de empleados</li>
-        <li>Control de inventario</li>
-        <li>Panel de reportes</li>
-      </ul>
-    </div>
-  </div>
-
-  <!-- RIGHT: Login Panel -->
-  <div class="right-panel">
-    <div class="login-box">
-      <h1>Bienvenido</h1>
-      <p class="login-subtitle">Ingresa tus credenciales para acceder a tu espacio artístico.</p>
-
-      <div class="error-msg" id="errorMsg"></div>
-
-      <!-- Email -->
-      <div class="form-group">
-        <label for="email">Correo Electrónico</label>
-        <div class="input-wrapper">
-          <input type="email" id="email" placeholder="nombre@ejemplo.com" autocomplete="email"/>
-          <span class="input-icon">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-              <polyline points="22,6 12,13 2,6"/>
-            </svg>
-          </span>
-        </div>
-      </div>
-
-      <!-- Password -->
-      <div class="form-group">
-        <label for="password">Contraseña</label>
-        <div class="input-wrapper">
-          <input type="password" id="password" placeholder="••••••••••" autocomplete="current-password"/>
-          <span class="input-icon" id="togglePwd" title="Mostrar / ocultar contraseña">
-            <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-              <circle cx="12" cy="12" r="3"/>
-            </svg>
-          </span>
-        </div>
-      </div>
-
-      <!-- Remember + Forgot -->
-      <div class="form-row">
-        <input type="checkbox" id="remember"/>
-        <label class="checkbox-label" for="remember">
-          <span class="custom-checkbox"></span>
-          Recordarme
-        </label>
-        <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
-      </div>
-
-      <!-- Button -->
-      <button class="btn-login" id="loginBtn">
-        <span class="spinner"></span>
-        <span class="btn-text">
-          INICIAR SESIÓN
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
-            <line x1="5" y1="12" x2="19" y2="12"/>
-            <polyline points="12 5 19 12 12 19"/>
-          </svg>
-        </span>
-      </button>
-
-      <!-- Divider -->
-      <div class="divider"><span>Recuerda</span></div>
-
-      <!-- Register -->
-      <div class="register-row">
-        ¿No tienes una cuenta? <a href="#">Regístrate gratis</a>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Antonela Art – Iniciar Sesión</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/CSS/login.css" />
+    <script src="../js/login.js" defer></script>
+  </head>
+  <body>
+    <!-- LEFT: Brand Panel -->
+    <div class="left-panel">
+      <div class="brand-card">
+        <div class="brand-logo">ANTONELA <span>ART</span></div>
+        <div class="brand-tagline">Atelier de Belleza Exclusivo</div>
+        <div class="dots"><span></span><span></span><span></span></div>
+        <ul class="features">
+          <li>Reserva de citas online</li>
+          <li>Gestión de empleados</li>
+          <li>Control de inventario</li>
+          <li>Panel de reportes</li>
+          j
+        </ul>
       </div>
     </div>
-  </div>
 
-  <!-- Help Button -->
-  <button class="help-btn" title="Ayuda">?</button>
+    <!-- RIGHT: Login Panel -->
+    <div class="right-panel">
+      <div class="login-box">
+        <h1>Bienvenido</h1>
+        <p class="login-subtitle">
+          Ingresa tus credenciales para acceder a tu espacio artístico.
+        </p>
 
-  <script src="script.js"></script>
-</body>
+        <div class="error-msg" id="errorMsg"></div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label for="email">Correo Electrónico</label>
+          <div class="input-wrapper">
+            <input
+              type="email"
+              id="email"
+              placeholder="nombre@ejemplo.com"
+              autocomplete="email"
+            />
+            <span class="input-icon">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              >
+                <path
+                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <div class="input-wrapper">
+            <input
+              type="password"
+              id="password"
+              placeholder="••••••••••"
+              autocomplete="current-password"
+            />
+            <span
+              class="input-icon"
+              id="togglePwd"
+              title="Mostrar / ocultar contraseña"
+            >
+              <svg
+                id="eyeIcon"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              >
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        <!-- Remember + Forgot -->
+        <div class="form-row">
+          <input type="checkbox" id="remember" />
+          <label class="checkbox-label" for="remember">
+            <span class="custom-checkbox"></span>
+            Recordarme
+          </label>
+          <a href="#" class="forgot-link">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <!-- Button -->
+        <button class="btn-login" id="loginBtn">
+          <span class="spinner"></span>
+          <span class="btn-text">
+            INICIAR SESIÓN
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+            >
+              <line x1="5" y1="12" x2="19" y2="12" />
+              <polyline points="12 5 19 12 12 19" />
+            </svg>
+          </span>
+        </button>
+
+        <!-- Divider -->
+        <div class="divider"><span>Recuerda</span></div>
+
+        <!-- Register -->
+        <div class="register-row">
+          ¿No tienes una cuenta? <a href="#">Regístrate gratis</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Help Button -->
+    <button class="help-btn" title="Ayuda">?</button>
+
+    <script src="script.js"></script>
+  </body>
 </html>
