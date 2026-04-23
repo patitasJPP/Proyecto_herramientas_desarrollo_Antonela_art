@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Antonela Art – Productos</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="../CSS/productos.css" />
+    <script src="../js/productos.js" defer></script>
+  </head>
+
+  <body>
+    <!-- NAV -->
+    <nav>
+  <div class="nav-logo">A</div>
+  <ul class="nav-links">
+    <li><a href="servicios.html">Servicios</a></li>
+    <li><a href="productos.html" class="active">Productos</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="btn-reservar">
+      Reservar cita
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+    <div class="nav-avatar">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="8" r="4" />
+        <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7" />
+      </svg>
+    </div>
+  </div>
+</nav>
+
+    <!-- HERO -->
+    <div class="hero">
+      <h1>Antonela Art</h1>
+      <p>
+        Una cuidada selección de productos de belleza de alta gama, diseñados
+        para realzar tu belleza natural. Descubre nuestros métodos
+        tradicionales, perfeccionados por la ciencia moderna.
+      </p>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters">
+      <span class="filter-label">Filtrar por:</span>
+      <button class="filter-btn active" data-filter="all">
+        Todos los productos
+      </button>
+      <button class="filter-btn" data-filter="cabello">
+        Cuidado del cabello
+      </button>
+      <button class="filter-btn" data-filter="piel">
+        Protección de la piel
+      </button>
+      <button class="filter-btn" data-filter="accesorios">Accesorios</button>
+    </div>
+
+    <!-- PRODUCTS -->
+    <div class="products-grid" id="grid"></div>
+
+    <!-- FOOTER -->
+    <footer>
+      <span>© 2026 Todos los Derechos Reservados</span>
+      <div class="footer-links">
+        <a href="#">Política de Privacidad</a>
+        <a href="#">Términos de Servicio</a>
+        <a href="#">Envíos</a>
+        <a href="#">Contáctanos</a>
+      </div>
+      <div class="footer-share">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M18 8a3 3 0 100-6 3 3 0 000 6zM6 15a3 3 0 100-6 3 3 0 000 6zM18 22a3 3 0 100-6 3 3 0 000 6zM8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"
+          />
+        </svg>
+      </div>
+    </footer>
+
+    <div class="toast" id="toast">✓ Añadido al carrito</div>
+  </body>
+</html>
