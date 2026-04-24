@@ -5,56 +5,56 @@
                 category: "Protección de la piel", tag: "piel",
                 desc: "Enriquecido con nopales de oro de 24 quilates y extractos botánicos.",
                 price: "S/85.00", badge: "BESTSELLER",
-                bg: "bg-pink", emoji: "🧴"
+                bg: "bg-pink", urlImagen:"../IMG/img1.webp"
             },
             {
                 id: 2, name: "Silk Recovery Serum",
                 category: "Cuidado del cabello", tag: "cabello",
                 desc: "Tratamiento intensivo para puntas abiertas y un brillo radiante.",
                 price: "S/62.00", badge: null,
-                bg: "bg-dark", emoji: "✨"
+                bg: "bg-dark", urlImagen:"../IMG/img2.webp"
             },
             {
                 id: 3, name: "Morning Ritual Set",
                 category: "Collections", tag: "piel",
                 desc: "Un sistema completo de 5 piezas para un inicio brillante.",
                 price: "S/145.00", badge: null,
-                bg: "bg-sage", emoji: "🌿"
+                bg: "bg-sage", urlImagen:"../IMG/img3.webp"
             },
             {
                 id: 4, name: "Rose Quartz Clay Mask",
                 category: "Protección de la piel", tag: "piel",
                 desc: "Arcilla rosa purificante con extracto botánico de rosa mosqueta.",
                 price: "S/48.00", badge: null,
-                bg: "bg-clay", emoji: "🌸"
+                bg: "bg-clay", urlImagen:"../IMG/img4.webp"
             },
             {
                 id: 5, name: "Botanical Mist",
                 category: "Cuidado del cabello", tag: "cabello",
                 desc: "Hidratación ligera para todo tipo de cabello.",
                 price: "S/34.00", badge: null,
-                bg: "bg-cream", emoji: "💧"
+                bg: "bg-cream", urlImagen:"../IMG/img5.webp"
             },
             {
                 id: 6, name: "Jade Sculpting Tool",
                 category: "Accesorios", tag: "accesorios",
                 desc: "Técnica tradicional Gua Sha para el rejuvenecimiento facial.",
                 price: "S/25.00", badge: null,
-                bg: "bg-forest", emoji: "🪨"
+                bg: "bg-forest", urlImagen:"../IMG/img6.webp"
             },
             {
                 id: 7, name: "Luminous Vitamin C",
                 category: "Protección de la piel", tag: "piel",
                 desc: "Sérum iluminador para un tono de piel más uniforme.",
                 price: "S/74.00", badge: null,
-                bg: "bg-orange", emoji: "🍊"
+                bg: "bg-orange", urlImagen:"../IMG/img7.webp"
             },
             {
                 id: 8, name: "Velvet Hand Therapy",
                 category: "Protección de la piel", tag: "piel",
                 desc: "Manteca profundamente nutritiva con karité y almendras.",
                 price: "S/28.00", badge: null,
-                bg: "bg-teal", emoji: "🤍"
+                bg: "bg-teal", urlImagen:"../IMG/img8.webp"
             }
         ];
 
@@ -69,7 +69,8 @@
             grid.innerHTML = filtered.map(p => `
     <div class="card" data-tag="${p.tag}">
       <div class="card-img ${p.bg}">
-        <div class="img-placeholder">${p.emoji}</div>
+        <div class="img-placeholder">
+        <img src="${p.urlImagen}" alt="Imagen"></div>
         ${p.badge ? `<span class="badge">${p.badge}</span>` : ''}
       </div>
       <div class="card-body">
