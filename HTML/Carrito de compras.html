@@ -1,0 +1,1311 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Antonela Art – Carrito</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #B8962E;
+    --gold-light: #D4AF50;
+    --gold-dark: #8A6F20;
+    --cream: #F5F0E8;
+    --cream-dark: #EDE8DC;
+    --dark: #1A1A18;
+    --text: #3A3A36;
+    --muted: #8A8A84;
+    --white: #FDFCF9;
+    --yape-orange: #FF6B00;
+    --yape-bg: #FFF3E8;
+    --bcp-blue: #003A8C;
+    --radius: 16px;
+    --shadow: 0 4px 32px rgba(0,0,0,0.08);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid rgba(184,150,46,0.15);
+    padding: 0 48px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--dark);
+    text-decoration: none;
+  }
+
+  .logo-icon {
+    width: 40px; height: 40px;
+    background: var(--dark);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px;
+    color: var(--gold);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 14px;
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 400;
+    transition: color 0.2s;
+  }
+
+  .nav-links a.active { color: var(--gold); border-bottom: 2px solid var(--gold); padding-bottom: 2px; }
+
+  /* PAGES */
+  .page { display: none; animation: fadeIn 0.4s ease; }
+  .page.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* STEP INDICATOR */
+  .step-bar {
+    background: var(--white);
+    border-bottom: 1px solid rgba(184,150,46,0.1);
+    padding: 12px 48px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  .step-bar span { color: var(--gold); font-weight: 500; }
+
+  /* CONTAINER */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px;
+  }
+
+  .page-title-label {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-bottom: 8px;
+  }
+
+  .page-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 52px);
+    font-weight: 300;
+    color: var(--dark);
+    margin-bottom: 40px;
+    line-height: 1.1;
+  }
+
+  /* CART LAYOUT */
+  .cart-layout {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: 32px;
+    align-items: start;
+  }
+
+  /* PRODUCT ITEMS */
+  .products-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: rgba(184,150,46,0.1);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .product-item {
+    background: var(--white);
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: background 0.2s;
+  }
+
+  .product-item:hover { background: var(--cream); }
+
+  .product-img {
+    width: 72px; height: 72px;
+    border-radius: 10px;
+    object-fit: cover;
+    background: var(--cream-dark);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+  }
+
+  .product-info { flex: 1; }
+
+  .product-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--dark);
+    margin-bottom: 2px;
+  }
+
+  .product-desc {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .qty-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .qty-ctrl {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1px solid rgba(184,150,46,0.3);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .qty-btn {
+    width: 32px; height: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: var(--gold);
+    transition: background 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .qty-btn:hover { background: rgba(184,150,46,0.1); }
+
+  .qty-val {
+    width: 36px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 500;
+    border-left: 1px solid rgba(184,150,46,0.2);
+    border-right: 1px solid rgba(184,150,46,0.2);
+    height: 32px;
+    line-height: 32px;
+  }
+
+  .remove-btn {
+    font-size: 12px;
+    color: #C0392B;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: underline;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .product-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+
+  /* SIDEBAR */
+  .sidebar { position: sticky; top: 80px; }
+
+  .summary-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
+    margin-bottom: 16px;
+  }
+
+  .summary-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--dark);
+    margin-bottom: 20px;
+  }
+
+  .summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+
+  .summary-row .label { color: var(--muted); }
+  .summary-row .free { color: var(--gold); font-weight: 500; }
+
+  .summary-divider {
+    border: none;
+    border-top: 1px solid rgba(184,150,46,0.15);
+    margin: 16px 0;
+  }
+
+  .total-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+
+  .total-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 500;
+  }
+
+  .total-amount {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--gold);
+  }
+
+  /* PAYMENT METHOD SELECTION */
+  .payment-select-title {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+    font-weight: 500;
+  }
+
+  .payment-methods {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .pay-method-btn {
+    border: 2px solid rgba(184,150,46,0.2);
+    background: var(--cream);
+    border-radius: 12px;
+    padding: 14px 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.25s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .pay-method-btn:hover {
+    border-color: var(--gold);
+    background: rgba(184,150,46,0.06);
+    transform: translateY(-2px);
+  }
+
+  .pay-method-btn.selected-yape {
+    border-color: var(--yape-orange);
+    background: var(--yape-bg);
+  }
+
+  .pay-method-btn.selected-card {
+    border-color: var(--bcp-blue);
+    background: rgba(0,58,140,0.05);
+  }
+
+  .pay-icon {
+    font-size: 24px;
+  }
+
+  .pay-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .checkout-btn {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.25s;
+    box-shadow: 0 4px 20px rgba(184,150,46,0.35);
+  }
+
+  .checkout-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(184,150,46,0.45);
+  }
+
+  .checkout-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .secure-note {
+    text-align: center;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  /* ===================== CHECKOUT PAGES ===================== */
+  .checkout-layout {
+    display: grid;
+    grid-template-columns: 1fr 440px;
+    gap: 40px;
+    align-items: start;
+  }
+
+  /* ORDER SUMMARY LEFT */
+  .order-summary-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+
+  .order-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(184,150,46,0.1);
+  }
+
+  .order-item:last-of-type { border-bottom: none; }
+
+  .order-img {
+    width: 60px; height: 60px;
+    border-radius: 8px;
+    background: var(--cream-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+  }
+
+  .order-item-info { flex: 1; }
+  .order-item-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--dark);
+  }
+
+  .order-item-desc { font-size: 12px; color: var(--muted); }
+  .order-item-qty {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  .order-item-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--dark);
+  }
+
+  .order-totals { margin-top: 20px; }
+  .order-total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: var(--muted);
+  }
+
+  .order-total-final {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 16px;
+    border-top: 1px solid rgba(184,150,46,0.15);
+    padding-top: 16px;
+  }
+
+  .order-total-final .lbl {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 500;
+  }
+
+  .order-total-final .amt {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--gold);
+  }
+
+  .igv-note { font-size: 11px; color: var(--muted); text-align: right; margin-top: 2px; }
+
+  /* YAPE PAYMENT CARD */
+  .yape-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+
+  .yape-icon-wrap {
+    width: 64px; height: 64px;
+    background: var(--yape-bg);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 30px;
+  }
+
+  .yape-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 500;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+
+  .yape-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+
+  .qr-wrapper {
+    background: var(--yape-orange);
+    border-radius: 16px;
+    padding: 20px;
+    display: inline-block;
+    margin-bottom: 24px;
+  }
+
+  .qr-mock {
+    width: 160px; height: 160px;
+    background: white;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 90px;
+  }
+
+  .yape-or {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 12px;
+  }
+
+  .yape-number {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--cream);
+    border: 1px solid rgba(184,150,46,0.2);
+    border-radius: 40px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--dark);
+    margin-bottom: 24px;
+    letter-spacing: 0.05em;
+  }
+
+  .confirm-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--dark);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.25s;
+  }
+
+  .confirm-btn.yape-confirm {
+    background: var(--yape-orange);
+  }
+
+  .confirm-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+
+  .info-note {
+    background: rgba(184,150,46,0.08);
+    border-left: 3px solid var(--gold);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 12px;
+    color: var(--text);
+    text-align: left;
+    margin-top: 16px;
+    line-height: 1.6;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--muted);
+    cursor: pointer;
+    margin-top: 20px;
+    background: none;
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--gold); }
+
+  /* CARD PAYMENT */
+  .card-payment-box {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+
+  .card-pay-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--dark);
+    margin-bottom: 4px;
+  }
+
+  .card-pay-sub { font-size: 13px; color: var(--muted); margin-bottom: 24px; }
+
+  .card-logos {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+  }
+
+  .card-logo {
+    padding: 4px 10px;
+    border: 1px solid rgba(0,0,0,0.15);
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--dark);
+  }
+
+  .card-logo.bcp { color: var(--bcp-blue); border-color: var(--bcp-blue); }
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+  .form-label {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .form-input {
+    width: 100%;
+    padding: 14px 16px;
+    border: 1.5px solid rgba(184,150,46,0.2);
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--dark);
+    background: var(--cream);
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .form-input:focus { border-color: var(--gold); background: var(--white); }
+  .form-input::placeholder { color: rgba(58,58,54,0.35); }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  .pay-btn-final {
+    width: 100%;
+    padding: 16px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    letter-spacing: 0.04em;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.25s;
+    box-shadow: 0 4px 20px rgba(184,150,46,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+  }
+
+  .pay-btn-final:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(184,150,46,0.45);
+  }
+
+  .terms-note {
+    font-size: 11px;
+    color: var(--muted);
+    text-align: center;
+    margin-top: 12px;
+  }
+
+  .terms-note a { color: var(--gold); text-decoration: none; }
+
+  /* QUOTE */
+  .editorial-quote {
+    background: rgba(184,150,46,0.08);
+    border-left: 3px solid var(--gold);
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 13px;
+    color: var(--text);
+    line-height: 1.7;
+    margin-top: 20px;
+    font-style: italic;
+  }
+
+  /* SUCCESS PAGE */
+  .success-wrap {
+    text-align: center;
+    max-width: 500px;
+    margin: 80px auto;
+    padding: 48px 32px;
+    background: var(--white);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+  }
+
+  .success-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .success-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--dark);
+    margin-bottom: 12px;
+  }
+
+  .success-msg { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; }
+
+  .success-btn {
+    padding: 14px 32px;
+    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--cream-dark);
+    border-top: 1px solid rgba(184,150,46,0.12);
+    padding: 48px;
+    margin-top: 80px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 2fr;
+    gap: 40px;
+  }
+
+  .footer-brand .brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  .footer-col h4 {
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+    font-weight: 500;
+    margin-bottom: 16px;
+  }
+
+  .footer-col a {
+    display: block;
+    font-size: 13px;
+    color: var(--muted);
+    text-decoration: none;
+    margin-bottom: 8px;
+    transition: color 0.2s;
+  }
+
+  .footer-col a:hover { color: var(--gold); }
+
+  .newsletter-input-wrap {
+    display: flex;
+    gap: 0;
+    border: 1px solid rgba(184,150,46,0.3);
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--white);
+  }
+
+  .newsletter-input {
+    flex: 1;
+    padding: 12px 14px;
+    border: none;
+    outline: none;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    background: transparent;
+    color: var(--text);
+  }
+
+  .newsletter-btn {
+    padding: 12px 16px;
+    background: var(--gold);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.2s;
+  }
+
+  .newsletter-btn:hover { background: var(--gold-dark); }
+
+  .copyright {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .cart-layout, .checkout-layout { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    footer { grid-template-columns: 1fr 1fr; }
+    nav { padding: 0 20px; }
+    .container { padding: 32px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="inicio.html" class="logo">
+    <div class="logo-icon">A</div>
+    Antonela Art
+  </a>
+  <ul class="nav-links">
+    <li><a href="servicios.html">Servicios</a></li>
+    <li><a href="productos.html">Productos</a></li>
+    <li><a href="Carrito de compras.html" class="active" id="nav-carrito">Carrito</a></li>
+  </ul>
+  <div style="display:flex;gap:16px;font-size:20px;cursor:pointer">🛍️ 👤</div>
+</nav>
+
+<!-- STEP BAR -->
+<div class="step-bar" id="step-bar">
+  <span id="step1-indicator">Carrito</span> → <span id="step2-indicator" style="color:var(--muted)">Pago</span> → <span id="step3-indicator" style="color:var(--muted)">Confirmación</span>
+</div>
+
+<!-- ======================== PAGE 1: CART ======================== -->
+<div class="page active" id="page-cart">
+  <div class="container">
+    <div class="page-title-label">Experiencia de Compra</div>
+    <h1 class="page-title">Tus Productos</h1>
+
+    <div class="cart-layout">
+      <!-- PRODUCTS -->
+      <div class="products-list" id="products-list">
+        <div class="product-item" data-id="1">
+          <div class="product-img">💜</div>
+          <div class="product-info">
+            <div class="product-name">Sérum Reparador</div>
+            <div class="product-desc">Renovación celular avanzada</div>
+            <div class="qty-row">
+              <div class="qty-ctrl">
+                <button class="qty-btn" onclick="changeQty(1,-1)">−</button>
+                <div class="qty-val" id="qty-1">1</div>
+                <button class="qty-btn" onclick="changeQty(1,1)">+</button>
+              </div>
+              <button class="remove-btn" onclick="removeItem(1)">Eliminar</button>
+            </div>
+          </div>
+          <div class="product-price" id="price-1">S/85,00</div>
+        </div>
+
+        <div class="product-item" data-id="2">
+          <div class="product-img">🧴</div>
+          <div class="product-info">
+            <div class="product-name">Crema Hidratante</div>
+            <div class="product-desc">Fórmula de hidratación profunda</div>
+            <div class="qty-row">
+              <div class="qty-ctrl">
+                <button class="qty-btn" onclick="changeQty(2,-1)">−</button>
+                <div class="qty-val" id="qty-2">2</div>
+                <button class="qty-btn" onclick="changeQty(2,1)">+</button>
+              </div>
+              <button class="remove-btn" onclick="removeItem(2)">Eliminar</button>
+            </div>
+          </div>
+          <div class="product-price" id="price-2">S/120,00</div>
+        </div>
+
+        <div class="product-item" data-id="3">
+          <div class="product-img" style="background:var(--dark)">🫒</div>
+          <div class="product-info">
+            <div class="product-name">Aceite de Cutículas</div>
+            <div class="product-desc">Base nutritiva de vitamina E</div>
+            <div class="qty-row">
+              <div class="qty-ctrl">
+                <button class="qty-btn" onclick="changeQty(3,-1)">−</button>
+                <div class="qty-val" id="qty-3">1</div>
+                <button class="qty-btn" onclick="changeQty(3,1)">+</button>
+              </div>
+              <button class="remove-btn" onclick="removeItem(3)">Eliminar</button>
+            </div>
+          </div>
+          <div class="product-price" id="price-3">S/32,00</div>
+        </div>
+      </div>
+
+      <!-- SIDEBAR -->
+      <div class="sidebar">
+        <div class="summary-card">
+          <div class="summary-title">Resumen</div>
+          <div class="summary-row">
+            <span class="label">Subtotal</span>
+            <span id="subtotal-display">S/237,00</span>
+          </div>
+          <div class="summary-row">
+            <span class="label">Envío</span>
+            <span class="free">Gratis</span>
+          </div>
+          <hr class="summary-divider">
+          <div class="total-row">
+            <div class="total-label">Total</div>
+            <div class="total-amount" id="total-display">S/237,00</div>
+          </div>
+
+          <!-- PAYMENT METHOD CHOICE -->
+          <div class="payment-select-title">¿Cómo deseas pagar?</div>
+          <div class="payment-methods">
+            <button class="pay-method-btn" id="btn-yape" onclick="selectPayment('yape')">
+              <span class="pay-icon">📱</span>
+              <span class="pay-label">Yape / QR</span>
+            </button>
+            <button class="pay-method-btn" id="btn-card" onclick="selectPayment('card')">
+              <span class="pay-icon">💳</span>
+              <span class="pay-label">Tarjeta BCP</span>
+            </button>
+          </div>
+
+          <button class="checkout-btn" id="checkout-btn" onclick="goToCheckout()" disabled>
+            Continuar al Pago →
+          </button>
+          <div class="secure-note">🔒 Pago seguro y encriptado</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== PAGE 2: YAPE ======================== -->
+<div class="page" id="page-yape">
+  <div class="container">
+    <div class="page-title-label">Caja & Pedido</div>
+    <h1 class="page-title">Resumen de tu Orden</h1>
+
+    <div class="checkout-layout">
+      <div class="order-summary-card">
+        <div class="order-item">
+          <div class="order-img">💜</div>
+          <div class="order-item-info">
+            <div class="order-item-name">Sérum Reparador</div>
+            <div class="order-item-desc">Renovación celular avanzada</div>
+            <div class="order-item-qty">Cantidad: <span id="yape-qty-1">1</span></div>
+          </div>
+          <div class="order-item-price" id="yape-price-1">S/ 85.00</div>
+        </div>
+        <div class="order-item">
+          <div class="order-img">🧴</div>
+          <div class="order-item-info">
+            <div class="order-item-name">Crema Hidratante</div>
+            <div class="order-item-desc">Fórmula de hidratación profunda</div>
+            <div class="order-item-qty">Cantidad: <span id="yape-qty-2">2</span></div>
+          </div>
+          <div class="order-item-price" id="yape-price-2">S/ 120.00</div>
+        </div>
+        <div class="order-item">
+          <div class="order-img" style="background:var(--dark)">🫒</div>
+          <div class="order-item-info">
+            <div class="order-item-name">Aceite de Cutículas</div>
+            <div class="order-item-desc">Base nutritiva de vitamina E</div>
+            <div class="order-item-qty">Cantidad: <span id="yape-qty-3">1</span></div>
+          </div>
+          <div class="order-item-price" id="yape-price-3">S/ 32.00</div>
+        </div>
+
+        <div class="order-totals">
+          <div class="order-total-row"><span>Subtotal</span><span id="yape-subtotal">S/ 237.00</span></div>
+          <div class="order-total-row"><span>Envío Prioritario</span><span style="color:var(--gold)">Gratis</span></div>
+          <div class="order-total-final">
+            <div class="lbl">Total</div>
+            <div>
+              <div class="amt" id="yape-total">S/ 237.00</div>
+              <div class="igv-note">IGV incluido</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- YAPE PANEL -->
+      <div class="yape-card">
+        <div class="yape-icon-wrap">📱</div>
+        <div class="yape-title">Pago con Yape</div>
+        <div class="yape-subtitle">Escanea el código QR desde tu app</div>
+
+        <div class="qr-wrapper">
+          <div class="qr-mock">▦</div>
+        </div>
+
+        <div class="yape-or">O yapea al número</div>
+        <div class="yape-number">📱 987 654 321</div>
+
+        <button class="confirm-btn yape-confirm" onclick="goToSuccess()">CONFIRMAR PAGO</button>
+
+        <div class="info-note">
+          📋 Por favor, una vez realizado el pago, envía la captura de pantalla de la confirmación a nuestro WhatsApp para validar tu orden de inmediato.
+        </div>
+
+        <button class="back-link" onclick="goBack('cart')">← Volver al Carrito</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== PAGE 3: CARD ======================== -->
+<div class="page" id="page-card">
+  <div class="container">
+    <div class="page-title-label">Resumen de Compra</div>
+    <h1 class="page-title">Tu Selección Editorial</h1>
+
+    <div class="checkout-layout">
+      <div class="order-summary-card">
+        <div class="order-item">
+          <div class="order-img">💜</div>
+          <div class="order-item-info">
+            <div class="order-item-name">Sérum Reparador</div>
+            <div class="order-item-desc">Renovación celular avanzada</div>
+            <div class="order-item-qty">Cantidad: <span id="card-qty-1">1</span></div>
+          </div>
+          <div class="order-item-price" id="card-price-1">S/ 85.00</div>
+        </div>
+        <div class="order-item">
+          <div class="order-img">🧴</div>
+          <div class="order-item-info">
+            <div class="order-item-name">Crema Hidratante</div>
+            <div class="order-item-desc">Fórmula de hidratación profunda</div>
+            <div class="order-item-qty">Cantidad: <span id="card-qty-2">2</span></div>
+          </div>
+          <div class="order-item-price" id="card-price-2">S/ 120.00</div>
+        </div>
+        <div class="order-item">
+          <div class="order-img" style="background:var(--dark)">🫒</div>
+          <div class="order-item-info">
+            <div class="order-item-name">Aceite de Cutículas</div>
+            <div class="order-item-desc">Base nutritiva de vitamina E</div>
+            <div class="order-item-qty">Cantidad: <span id="card-qty-3">1</span></div>
+          </div>
+          <div class="order-item-price" id="card-price-3">S/ 32.00</div>
+        </div>
+
+        <div class="order-totals">
+          <div class="order-total-row"><span>Subtotal</span><span id="card-subtotal">S/ 237.00</span></div>
+          <div class="order-total-row"><span>Envío / Reserva</span><span style="color:var(--gold)">Gratis</span></div>
+          <div class="order-total-final">
+            <div class="lbl">Total</div>
+            <div class="amt" id="card-total">S/ 237.00</div>
+          </div>
+        </div>
+
+        <div class="editorial-quote">
+          ✦ "Cada detalle en el Atelier está diseñado para elevar tu bienestar. Tu transacción es segura y privada."
+        </div>
+      </div>
+
+      <!-- CARD FORM -->
+      <div class="card-payment-box">
+        <div class="card-pay-title">Pago con Tarjeta BCP</div>
+        <div class="card-pay-sub">Transacción cifrada punto a punto</div>
+
+        <div class="card-logos">
+          <div class="card-logo">VISA</div>
+          <div class="card-logo">MC</div>
+          <div class="card-logo bcp">BCP</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Número de Tarjeta</label>
+          <input type="text" class="form-input" placeholder="0000 0000 0000 0000" maxlength="19" oninput="formatCard(this)">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Fecha de Expiración</label>
+            <input type="text" class="form-input" placeholder="MM / YY" maxlength="5" oninput="formatExp(this)">
+          </div>
+          <div class="form-group">
+            <label class="form-label">CVV</label>
+            <input type="password" class="form-input" placeholder="•••" maxlength="3">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Nombre del Titular</label>
+          <input type="text" class="form-input" placeholder="Como figura en la tarjeta">
+        </div>
+
+        <button class="pay-btn-final" onclick="goToSuccess()">
+          🛡️ Pagar <span id="card-pay-amount">S/ 237.00</span>
+        </button>
+
+        <div class="terms-note">
+          Al procesar el pago, aceptas nuestros <a href="#">Términos de Servicio</a> y <a href="#">Políticas de Privacidad</a>.
+        </div>
+
+        <button class="back-link" onclick="goBack('cart')">← Volver al Carrito</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================== PAGE 4: SUCCESS ======================== -->
+<div class="page" id="page-success">
+  <div class="container">
+    <div class="success-wrap">
+      <span class="success-icon">✨</span>
+      <div class="success-title">¡Orden Confirmada!</div>
+      <div class="success-msg">
+        Gracias por tu compra en Antonela Art. Recibirás una confirmación pronto y tu pedido será preparado con la mayor delicadeza.<br><br>
+        Si pagaste con Yape, recuerda enviar tu captura al WhatsApp para activar tu orden de inmediato.
+      </div>
+      <button class="success-btn" onclick="resetFlow()">Seguir Comprando</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="brand-name">Antonela Art</div>
+    <p>Elevando la belleza a una forma de arte. Productos curados para la piel más exigente.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Servicio</h4>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Service</a>
+  </div>
+  <div class="footer-col">
+    <h4>Tienda</h4>
+    <a href="#">Shipping & Returns</a>
+    <a href="#">Contact Us</a>
+  </div>
+  <div class="footer-col">
+    <h4>Newsletter</h4>
+    <div class="newsletter-input-wrap">
+      <input type="email" class="newsletter-input" placeholder="Tu email">
+      <button class="newsletter-btn">→</button>
+    </div>
+    <div class="copyright">© 2024 Antonela Art. All rights reserved.</div>
+  </div>
+</footer>
+
+<script>
+  // ─── STATE ───────────────────────────────────────────────
+  const products = {
+    1: { base: 85,  qty: 1 },
+    2: { base: 60,  qty: 2 },  // 60 per unit × 2 = 120
+    3: { base: 32,  qty: 1 }
+  };
+
+  let selectedPayment = null;
+
+  // ─── UTILS ───────────────────────────────────────────────
+  function getTotal() {
+    return Object.values(products).reduce((s, p) => s + p.base * p.qty, 0);
+  }
+
+  function fmt(n) { return 'S/' + n.toFixed(2).replace('.', ','); }
+  function fmt2(n) { return 'S/ ' + n.toFixed(2); }
+
+  function updateSummary() {
+    const total = getTotal();
+    document.getElementById('subtotal-display').textContent = fmt(total);
+    document.getElementById('total-display').textContent = fmt(total);
+  }
+
+  function syncCheckoutData() {
+    const total = getTotal();
+    // YAPE page
+    for (let id = 1; id <= 3; id++) {
+      if (products[id]) {
+        document.getElementById('yape-qty-' + id).textContent = products[id].qty;
+        document.getElementById('yape-price-' + id).textContent = fmt2(products[id].base * products[id].qty);
+        document.getElementById('card-qty-' + id).textContent = products[id].qty;
+        document.getElementById('card-price-' + id).textContent = fmt2(products[id].base * products[id].qty);
+      }
+    }
+    document.getElementById('yape-subtotal').textContent = fmt2(total);
+    document.getElementById('yape-total').textContent = fmt2(total);
+    document.getElementById('card-subtotal').textContent = fmt2(total);
+    document.getElementById('card-total').textContent = fmt2(total);
+    document.getElementById('card-pay-amount').textContent = fmt2(total);
+  }
+
+  // ─── QTY & REMOVE ────────────────────────────────────────
+  function changeQty(id, delta) {
+    const p = products[id];
+    if (!p) return;
+    const newQty = p.qty + delta;
+    if (newQty < 1) return;
+    p.qty = newQty;
+    document.getElementById('qty-' + id).textContent = newQty;
+    document.getElementById('price-' + id).textContent = fmt(p.base * newQty);
+    updateSummary();
+  }
+
+  function removeItem(id) {
+    const el = document.querySelector('.product-item[data-id="' + id + '"]');
+    if (el) el.style.display = 'none';
+    products[id].qty = 0;
+    updateSummary();
+  }
+
+  // ─── PAYMENT SELECTION ───────────────────────────────────
+  function selectPayment(method) {
+    selectedPayment = method;
+    document.getElementById('btn-yape').className = 'pay-method-btn' + (method === 'yape' ? ' selected-yape' : '');
+    document.getElementById('btn-card').className = 'pay-method-btn' + (method === 'card' ? ' selected-card' : '');
+    document.getElementById('checkout-btn').disabled = false;
+    document.getElementById('checkout-btn').textContent =
+      method === 'yape' ? 'Pagar con Yape →' : 'Pagar con Tarjeta →';
+  }
+
+  // ─── NAVIGATION ──────────────────────────────────────────
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    updateStepBar(id);
+  }
+
+  function updateStepBar(page) {
+    const gold = 'var(--gold)';
+    const muted = 'var(--muted)';
+    document.getElementById('step1-indicator').style.color = gold;
+    document.getElementById('step2-indicator').style.color = (page === 'yape' || page === 'card') ? gold : muted;
+    document.getElementById('step3-indicator').style.color = page === 'success' ? gold : muted;
+  }
+
+  function goToCheckout() {
+    if (!selectedPayment) return;
+    syncCheckoutData();
+    showPage(selectedPayment);
+  }
+
+  function goBack(page) { showPage(page); }
+
+  function goToSuccess() { showPage('success'); }
+
+  function resetFlow() {
+    selectedPayment = null;
+    document.getElementById('btn-yape').className = 'pay-method-btn';
+    document.getElementById('btn-card').className = 'pay-method-btn';
+    document.getElementById('checkout-btn').disabled = true;
+    document.getElementById('checkout-btn').textContent = 'Continuar al Pago →';
+    showPage('cart');
+  }
+
+  // ─── CARD INPUT FORMATTING ───────────────────────────────
+  function formatCard(el) {
+    let v = el.value.replace(/\D/g, '').substring(0, 16);
+    el.value = v.replace(/(.{4})/g, '$1 ').trim();
+  }
+
+  function formatExp(el) {
+    let v = el.value.replace(/\D/g, '').substring(0, 4);
+    if (v.length >= 2) v = v.substring(0, 2) + ' / ' + v.substring(2);
+    el.value = v;
+  }
+
+  // Init
+  updateSummary();
+</script>
+</body>
+</html>
