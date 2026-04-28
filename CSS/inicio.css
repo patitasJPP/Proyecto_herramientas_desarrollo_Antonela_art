@@ -51,15 +51,34 @@ body {
 .logo-icon {
   width: 40px;
   height: 40px;
-  background: var(--dark);
   border-radius: 8px;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  background: var(--dark); /* por si la imagen tiene transparencia */
+}
+
+.logo-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.nav-icons {
+  display: flex;
+  gap: 20px;
   font-size: 20px;
-  font-weight: 700;
+}
+
+.nav-icons a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.nav-icons a:hover {
   color: var(--gold);
-  font-family: 'Cormorant Garamond', serif;
 }
 
 .nav-links {
