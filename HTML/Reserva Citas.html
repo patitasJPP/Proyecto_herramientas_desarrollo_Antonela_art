@@ -1,1051 +1,1288 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Antonela Art – Reserva tu Cita</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-<style>
-  :root {
-    --gold: #B8962E;
-    --gold-light: #D4AF50;
-    --gold-dark: #8A6F20;
-    --cream: #F5F0E8;
-    --cream-dark: #EDE8DC;
-    --dark: #1A1A18;
-    --text: #3A3A36;
-    --muted: #8A8A84;
-    --white: #FDFCF9;
-    --radius: 16px;
-    --shadow: 0 4px 32px rgba(0,0,0,0.08);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--cream);
-    color: var(--text);
-    min-height: 100vh;
-  }
-
-  /* ── NAV ── */
-.navbar {
-  background: var(--white);
-  border-bottom: 1px solid rgba(184,150,46,0.15);
-  padding: 0 48px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
-  font-weight: 600;
-  color: var(--dark);
-  text-decoration: none;
-}
-
-.logo-icon {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--dark);
-  flex-shrink: 0;
-}
-
-.logo-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.nav-links {
-  display: flex;
-  gap: 32px;
-  list-style: none;
-}
-
-.nav-links a {
-  font-size: 14px;
-  color: var(--muted);
-  text-decoration: none;
-  font-weight: 400;
-  transition: color 0.2s;
-}
-
-.nav-links a.active,
-.nav-links a:hover {
-  color: var(--gold);
-  border-bottom: 2px solid var(--gold);
-  padding-bottom: 2px;
-}
-
-.nav-icons {
-  display: flex;
-  gap: 20px;
-  font-size: 20px;
-  align-items: center;
-}
-
-.nav-icons a {
-  color: var(--muted);
-  text-decoration: none;
-  transition: color 0.2s;
-}
-
-.nav-icons a:hover { color: var(--gold); }
-
-  /* ── PAGES ── */
-  .page { display: none; animation: fadeIn 0.4s ease; }
-  .page.active { display: block; }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  /* ── CONTAINER ── */
-  .container {
-    max-width: 1060px;
-    margin: 0 auto;
-    padding: 56px 24px 80px;
-  }
-
-  /* ── BOOKING PAGE ── */
-  .booking-header {
-    text-align: center;
-    margin-bottom: 48px;
-  }
-
-  .booking-header h1 {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(36px, 5vw, 52px);
-    font-weight: 500;
-    color: var(--dark);
-    margin-bottom: 8px;
-  }
-
-  .booking-header p {
-    font-size: 14px;
-    color: var(--muted);
-  }
-
-  /* ── MAIN LAYOUT ── */
-  .booking-layout {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 32px;
-    align-items: start;
-  }
-
-  .booking-steps { display: flex; flex-direction: column; gap: 36px; }
-
-  /* ── STEP BLOCK ── */
-
-  .step-label {
-    font-size: 11px;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 500;
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .step-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: rgba(184,150,46,0.15);
-  }
-
-  /* ── SERVICE OPTIONS ── */
-  .service-list { display: flex; flex-direction: column; gap: 10px; }
-
-  .service-item {
-    background: var(--white);
-    border: 1.5px solid rgba(184,150,46,0.18);
-    border-radius: 12px;
-    padding: 16px 20px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    transition: all 0.22s;
-    position: relative;
-  }
-
-  .service-item:hover {
-    border-color: var(--gold);
-    transform: translateX(4px);
-  }
-
-  .service-item.selected {
-    border-color: var(--gold);
-    background: linear-gradient(135deg, rgba(184,150,46,0.07), rgba(184,150,46,0.02));
-    transform: translateX(4px);
-  }
-
-  .service-item .check {
-    width: 22px; height: 22px;
-    border-radius: 50%;
-    background: var(--gold);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 12px;
-    color: var(--white);
-    opacity: 0;
-    transition: opacity 0.2s;
-    flex-shrink: 0;
-  }
-
-  .service-item.selected .check { opacity: 1; }
-
-  .svc-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 17px;
-    font-weight: 500;
-    color: var(--dark);
-  }
-
-  .svc-meta {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 2px;
-  }
-
-  /* ── PROFESSIONALS ── */
-  .pro-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .pro-item {
-    background: var(--white);
-    border: 1.5px solid rgba(184,150,46,0.18);
-    border-radius: 12px;
-    padding: 18px 16px;
-    cursor: pointer;
-    transition: all 0.22s;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-  }
-
-  .pro-item:hover { border-color: var(--gold); }
-
-  .pro-item.selected {
-    border-color: var(--gold);
-    background: linear-gradient(135deg, rgba(184,150,46,0.07), rgba(184,150,46,0.02));
-  }
-
-  .pro-avatar {
-    width: 40px; height: 40px;
-    border-radius: 50%;
-    background: var(--cream-dark);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px;
-    flex-shrink: 0;
-    border: 2px solid rgba(184,150,46,0.2);
-  }
-
-  .pro-item.selected .pro-avatar { border-color: var(--gold); }
-
-  .pro-info { flex: 1; }
-
-  .pro-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--dark);
-  }
-
-  .pro-role {
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 2px;
-  }
-
-  .pro-check {
-    width: 20px; height: 20px;
-    border-radius: 50%;
-    background: var(--gold);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 10px;
-    color: var(--white);
-    opacity: 0;
-    transition: opacity 0.2s;
-    flex-shrink: 0;
-  }
-
-  .pro-item.selected .pro-check { opacity: 1; }
-
-  /* ── CALENDAR ── */
-  .calendar-wrap {
-    background: var(--white);
-    border-radius: 14px;
-    border: 1px solid rgba(184,150,46,0.15);
-    padding: 24px;
-  }
-
-  .cal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-
-  .cal-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    font-weight: 500;
-    color: var(--dark);
-  }
-
-  .cal-nav-btn {
-    width: 32px; height: 32px;
-    background: none;
-    border: 1px solid rgba(184,150,46,0.25);
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    color: var(--muted);
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.2s;
-  }
-
-  .cal-nav-btn:hover { border-color: var(--gold); color: var(--gold); }
-
-  .cal-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 4px;
-  }
-
-  .cal-day-header {
-    text-align: center;
-    font-size: 10px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 500;
-    padding: 6px 0;
-  }
-
-  .cal-day {
-    aspect-ratio: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    font-size: 13px;
-    cursor: pointer;
-    color: var(--text);
-    transition: all 0.18s;
-    font-weight: 400;
-  }
-
-  .cal-day:hover:not(.empty):not(.disabled) {
-    background: rgba(184,150,46,0.12);
-    color: var(--gold);
-  }
-
-  .cal-day.selected {
-    background: var(--gold);
-    color: var(--white);
-    font-weight: 500;
-  }
-
-  .cal-day.today { color: var(--gold); font-weight: 600; }
-  .cal-day.disabled { color: #ccc; cursor: not-allowed; }
-  .cal-day.empty { cursor: default; }
-
-  /* ── TIME SLOTS ── */
-  .time-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 10px;
-    margin-top: 20px;
-  }
-
-  .time-slot {
-    background: var(--white);
-    border: 1.5px solid rgba(184,150,46,0.18);
-    border-radius: 10px;
-    padding: 12px;
-    text-align: center;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-    color: var(--text);
-  }
-
-  .time-slot:hover { border-color: var(--gold); color: var(--gold); }
-  .time-slot.selected { background: var(--gold); border-color: var(--gold); color: var(--white); }
-
-  /* ── SUMMARY SIDEBAR ── */
-  .summary-sidebar { position: sticky; top: 80px; }
-
-  .summary-card {
-    background: var(--white);
-    border-radius: var(--radius);
-    padding: 28px;
-    box-shadow: var(--shadow);
-  }
-
-  .summary-top-label {
-    font-size: 10px;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 500;
-    margin-bottom: 20px;
-  }
-
-  .summary-field { margin-bottom: 18px; }
-
-  .summary-field-label {
-    font-size: 10px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--muted);
-    font-weight: 500;
-    margin-bottom: 4px;
-  }
-
-  .summary-field-val {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 17px;
-    font-weight: 500;
-    color: var(--dark);
-  }
-
-  .summary-field-val.placeholder { color: rgba(58,58,54,0.3); font-style: italic; }
-
-  .summary-divider {
-    border: none;
-    border-top: 1px solid rgba(184,150,46,0.15);
-    margin: 20px 0;
-  }
-
-  .summary-total-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-
-  .summary-total-lbl {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
-    font-weight: 500;
-    color: var(--dark);
-  }
-
-  .summary-total-amt {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
-    font-weight: 600;
-    color: var(--gold);
-  }
-
-  .confirm-btn {
-    width: 100%;
-    padding: 15px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-    color: var(--white);
-    border: none;
-    border-radius: 12px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.25s;
-    box-shadow: 0 4px 20px rgba(184,150,46,0.35);
-  }
-
-  .confirm-btn:hover:not(:disabled) {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 28px rgba(184,150,46,0.45);
-  }
-
-  .confirm-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-  }
-
-  .cancel-note {
-    font-size: 11px;
-    color: var(--muted);
-    text-align: center;
-    margin-top: 12px;
-    line-height: 1.6;
-  }
-
-  /* ── SUCCESS PAGE ── */
-  .success-wrap {
-    text-align: center;
-    max-width: 520px;
-    margin: 80px auto;
-    padding: 52px 40px;
-    background: var(--white);
-    border-radius: 24px;
-    box-shadow: var(--shadow);
-    animation: fadeIn 0.5s ease;
-  }
-
-  .success-badge {
-    width: 80px; height: 80px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 36px;
-    margin: 0 auto 24px;
-    box-shadow: 0 8px 32px rgba(184,150,46,0.3);
-  }
-
-  .success-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 40px;
-    font-weight: 300;
-    color: var(--dark);
-    margin-bottom: 12px;
-  }
-
-  .success-sub { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 32px; }
-
-  .booking-summary-box {
-    background: var(--cream);
-    border-radius: 12px;
-    padding: 20px;
-    text-align: left;
-    margin-bottom: 28px;
-  }
-
-  .bs-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(184,150,46,0.1);
-    font-size: 13px;
-  }
-
-  .bs-row:last-child { border-bottom: none; }
-  .bs-row .key { color: var(--muted); }
-  .bs-row .val { font-weight: 500; color: var(--dark); font-family: 'Cormorant Garamond', serif; font-size: 15px; }
-
-  .success-btn {
-    padding: 14px 36px;
-    background: linear-gradient(135deg, var(--gold), var(--gold-dark));
-    color: var(--white);
-    border: none;
-    border-radius: 12px;
-    font-size: 13px;
-    cursor: pointer;
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    transition: all 0.25s;
-    box-shadow: 0 4px 20px rgba(184,150,46,0.3);
-  }
-
-  .success-btn:hover { transform: translateY(-2px); }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--cream-dark);
-    border-top: 1px solid rgba(184,150,46,0.12);
-    padding: 48px;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 2fr;
-    gap: 40px;
-  }
-
-  .footer-brand .brand-name {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--gold);
-    margin-bottom: 8px;
-  }
-
-  .footer-brand p { font-size: 13px; color: var(--muted); line-height: 1.6; }
-
-  .footer-col h4 {
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text);
-    font-weight: 500;
-    margin-bottom: 16px;
-  }
-
-  .footer-col a {
-    display: block;
-    font-size: 13px;
-    color: var(--muted);
-    text-decoration: none;
-    margin-bottom: 8px;
-    transition: color 0.2s;
-  }
-
-  .footer-col a:hover { color: var(--gold); }
-
-  .newsletter-input-wrap {
-    display: flex;
-    border: 1px solid rgba(184,150,46,0.3);
-    border-radius: 8px;
-    overflow: hidden;
-    background: var(--white);
-  }
-
-  .newsletter-input {
-    flex: 1;
-    padding: 12px 14px;
-    border: none;
-    outline: none;
-    font-size: 13px;
-    font-family: 'DM Sans', sans-serif;
-    background: transparent;
-    color: var(--text);
-  }
-
-  .newsletter-btn {
-    padding: 12px 16px;
-    background: var(--gold);
-    color: var(--white);
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.2s;
-  }
-
-  .newsletter-btn:hover { background: var(--gold-dark); }
-  .copyright { font-size: 11px; color: var(--muted); margin-top: 12px; }
-
-  @media (max-width: 768px) {
-    .booking-layout { grid-template-columns: 1fr; }
-    .summary-sidebar { position: static; }
-    .pro-grid { grid-template-columns: 1fr; }
-    footer { grid-template-columns: 1fr 1fr; }
-    nav { padding: 0 20px; }
-    .container { padding: 32px 16px 60px; }
-  }
-</style>
-</head>
-<body>
-
-<!-- NAV -->
-<nav class="navbar">
-  <a href="inicio.html" class="logo">
-    <div class="logo-icon">
-      <img src="../IMG/logo antonela art.png" alt="Antonela Art" />
-    </div>
-    Antonela Art
-  </a>
-  <ul class="nav-links">
-    <li><a href="servicios.html" class="active">Servicios</a></li>
-    <li><a href="productos.html">Productos</a></li>
-    <li><a href="Carrito de compras.html">Carrito</a></li>
-  </ul>
-  <div class="nav-icons">
-    <a href="Carrito de compras.html"><i class="bi bi-bag"></i></a>
-    <a href="login.html"><i class="bi bi-person"></i></a>
-  </div>
-</nav>
-
-<!-- ============================== PAGE 1: BOOKING ============================== -->
-<div class="page active" id="page-booking">
-  <div class="container">
-
-    <div class="booking-header">
-      <h1>Reserva tu Cita</h1>
-      <p>Reserva tu experiencia personalizada en unos pocos pasos.</p>
-    </div>
-
-    <div class="booking-layout">
-      <!-- LEFT: STEPS -->
-      <div class="booking-steps">
-
-        <!-- STEP 1: SERVICE -->
-        <div class="step-block">
-          <div class="step-label">1. Selecciona un Servicio</div>
-          <div class="service-list">
-            <div class="service-item" onclick="selectService(this, 'Corte & Styling Premium', 120)" data-price="120">
-              <div>
-                <div class="svc-name">Corte &amp; Styling Premium</div>
-                <div class="svc-meta">90 min · S/120.00</div>
-              </div>
-              <div class="check">✓</div>
-            </div>
-            <div class="service-item" onclick="selectService(this, 'Coloración Orgánica', 150)" data-price="150">
-              <div>
-                <div class="svc-name">Coloración Orgánica</div>
-                <div class="svc-meta">120 min · S/150.00</div>
-              </div>
-              <div class="check">✓</div>
-            </div>
-            <div class="service-item" onclick="selectService(this, 'Tratamiento Hidratante', 85)" data-price="85">
-              <div>
-                <div class="svc-name">Tratamiento Hidratante</div>
-                <div class="svc-meta">45 min · S/85.00</div>
-              </div>
-              <div class="check">✓</div>
-            </div>
-          </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Antonela Art – Reserva tu Cita</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600&family=DM+Sans:wght@300;400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <style>
+      :root {
+        --gold: #b8962e;
+        --gold-light: #d4af50;
+        --gold-dark: #8a6f20;
+        --cream: #f5f0e8;
+        --cream-dark: #ede8dc;
+        --dark: #1a1a18;
+        --text: #3a3a36;
+        --muted: #8a8a84;
+        --white: #fdfcf9;
+        --radius: 16px;
+        --shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--cream);
+        color: var(--text);
+        min-height: 100vh;
+      }
+
+      /* ── NAV ── */
+      .navbar {
+        background: var(--white);
+        border-bottom: 1px solid rgba(184, 150, 46, 0.15);
+        padding: 0 48px;
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Cormorant Garamond", serif;
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--dark);
+        text-decoration: none;
+      }
+
+      .logo-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--dark);
+        flex-shrink: 0;
+      }
+
+      .logo-icon img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        font-size: 14px;
+        color: var(--muted);
+        text-decoration: none;
+        font-weight: 400;
+        transition: color 0.2s;
+      }
+
+      .nav-links a.active,
+      .nav-links a:hover {
+        color: var(--gold);
+        border-bottom: 2px solid var(--gold);
+        padding-bottom: 2px;
+      }
+
+      .nav-icons {
+        display: flex;
+        gap: 20px;
+        font-size: 20px;
+        align-items: center;
+      }
+
+      .nav-icons a {
+        color: var(--muted);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .nav-icons a:hover {
+        color: var(--gold);
+      }
+
+      /* ── PAGES ── */
+      .page {
+        display: none;
+        animation: fadeIn 0.4s ease;
+      }
+      .page.active {
+        display: block;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ── CONTAINER ── */
+      .container {
+        max-width: 1060px;
+        margin: 0 auto;
+        padding: 56px 24px 80px;
+      }
+
+      /* ── BOOKING PAGE ── */
+      .booking-header {
+        text-align: center;
+        margin-bottom: 48px;
+      }
+
+      .booking-header h1 {
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(36px, 5vw, 52px);
+        font-weight: 500;
+        color: var(--dark);
+        margin-bottom: 8px;
+      }
+
+      .booking-header p {
+        font-size: 14px;
+        color: var(--muted);
+      }
+
+      /* ── MAIN LAYOUT ── */
+      .booking-layout {
+        display: grid;
+        grid-template-columns: 1fr 320px;
+        gap: 32px;
+        align-items: start;
+      }
+
+      .booking-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 36px;
+      }
+
+      /* ── STEP BLOCK ── */
+
+      .step-label {
+        font-size: 11px;
+        letter-spacing: 0.13em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 500;
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .step-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: rgba(184, 150, 46, 0.15);
+      }
+
+      /* ── SERVICE OPTIONS ── */
+      .service-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .service-item {
+        background: var(--white);
+        border: 1.5px solid rgba(184, 150, 46, 0.18);
+        border-radius: 12px;
+        padding: 16px 20px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        transition: all 0.22s;
+        position: relative;
+      }
+
+      .service-item:hover {
+        border-color: var(--gold);
+        transform: translateX(4px);
+      }
+
+      .service-item.selected {
+        border-color: var(--gold);
+        background: linear-gradient(
+          135deg,
+          rgba(184, 150, 46, 0.07),
+          rgba(184, 150, 46, 0.02)
+        );
+        transform: translateX(4px);
+      }
+
+      .service-item .check {
+        width: 22px;
+        height: 22px;
+        border-radius: 50%;
+        background: var(--gold);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: var(--white);
+        opacity: 0;
+        transition: opacity 0.2s;
+        flex-shrink: 0;
+      }
+
+      .service-item.selected .check {
+        opacity: 1;
+      }
+
+      .svc-name {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 17px;
+        font-weight: 500;
+        color: var(--dark);
+      }
+
+      .svc-meta {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      /* ── PROFESSIONALS ── */
+      .pro-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .pro-item {
+        background: var(--white);
+        border: 1.5px solid rgba(184, 150, 46, 0.18);
+        border-radius: 12px;
+        padding: 18px 16px;
+        cursor: pointer;
+        transition: all 0.22s;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .pro-item:hover {
+        border-color: var(--gold);
+      }
+
+      .pro-item.selected {
+        border-color: var(--gold);
+        background: linear-gradient(
+          135deg,
+          rgba(184, 150, 46, 0.07),
+          rgba(184, 150, 46, 0.02)
+        );
+      }
+
+      .pro-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--cream-dark);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+        border: 2px solid rgba(184, 150, 46, 0.2);
+      }
+
+      .pro-item.selected .pro-avatar {
+        border-color: var(--gold);
+      }
+
+      .pro-info {
+        flex: 1;
+      }
+
+      .pro-name {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 16px;
+        font-weight: 500;
+        color: var(--dark);
+      }
+
+      .pro-role {
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      .pro-check {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--gold);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        color: var(--white);
+        opacity: 0;
+        transition: opacity 0.2s;
+        flex-shrink: 0;
+      }
+
+      .pro-item.selected .pro-check {
+        opacity: 1;
+      }
+
+      /* ── CALENDAR ── */
+      .calendar-wrap {
+        background: var(--white);
+        border-radius: 14px;
+        border: 1px solid rgba(184, 150, 46, 0.15);
+        padding: 24px;
+      }
+
+      .cal-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .cal-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 18px;
+        font-weight: 500;
+        color: var(--dark);
+      }
+
+      .cal-nav-btn {
+        width: 32px;
+        height: 32px;
+        background: none;
+        border: 1px solid rgba(184, 150, 46, 0.25);
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 14px;
+        color: var(--muted);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+      }
+
+      .cal-nav-btn:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+
+      .cal-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+      }
+
+      .cal-day-header {
+        text-align: center;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 500;
+        padding: 6px 0;
+      }
+
+      .cal-day {
+        aspect-ratio: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 8px;
+        font-size: 13px;
+        cursor: pointer;
+        color: var(--text);
+        transition: all 0.18s;
+        font-weight: 400;
+      }
+
+      .cal-day:hover:not(.empty):not(.disabled) {
+        background: rgba(184, 150, 46, 0.12);
+        color: var(--gold);
+      }
+
+      .cal-day.selected {
+        background: var(--gold);
+        color: var(--white);
+        font-weight: 500;
+      }
+
+      .cal-day.today {
+        color: var(--gold);
+        font-weight: 600;
+      }
+      .cal-day.disabled {
+        color: #ccc;
+        cursor: not-allowed;
+      }
+      .cal-day.empty {
+        cursor: default;
+      }
+
+      /* ── TIME SLOTS ── */
+      .time-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 20px;
+      }
+
+      .time-slot {
+        background: var(--white);
+        border: 1.5px solid rgba(184, 150, 46, 0.18);
+        border-radius: 10px;
+        padding: 12px;
+        text-align: center;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: var(--text);
+      }
+
+      .time-slot:hover {
+        border-color: var(--gold);
+        color: var(--gold);
+      }
+      .time-slot.selected {
+        background: var(--gold);
+        border-color: var(--gold);
+        color: var(--white);
+      }
+
+      /* ── SUMMARY SIDEBAR ── */
+      .summary-sidebar {
+        position: sticky;
+        top: 80px;
+      }
+
+      .summary-card {
+        background: var(--white);
+        border-radius: var(--radius);
+        padding: 28px;
+        box-shadow: var(--shadow);
+      }
+
+      .summary-top-label {
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 500;
+        margin-bottom: 20px;
+      }
+
+      .summary-field {
+        margin-bottom: 18px;
+      }
+
+      .summary-field-label {
+        font-size: 10px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 500;
+        margin-bottom: 4px;
+      }
+
+      .summary-field-val {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 17px;
+        font-weight: 500;
+        color: var(--dark);
+      }
+
+      .summary-field-val.placeholder {
+        color: rgba(58, 58, 54, 0.3);
+        font-style: italic;
+      }
+
+      .summary-divider {
+        border: none;
+        border-top: 1px solid rgba(184, 150, 46, 0.15);
+        margin: 20px 0;
+      }
+
+      .summary-total-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+      }
+
+      .summary-total-lbl {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--dark);
+      }
+
+      .summary-total-amt {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 24px;
+        font-weight: 600;
+        color: var(--gold);
+      }
+
+      .confirm-btn {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        color: var(--white);
+        border: none;
+        border-radius: 12px;
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        font-family: "DM Sans", sans-serif;
+        transition: all 0.25s;
+        box-shadow: 0 4px 20px rgba(184, 150, 46, 0.35);
+      }
+
+      .confirm-btn:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 28px rgba(184, 150, 46, 0.45);
+      }
+
+      .confirm-btn:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .cancel-note {
+        font-size: 11px;
+        color: var(--muted);
+        text-align: center;
+        margin-top: 12px;
+        line-height: 1.6;
+      }
+
+      /* ── SUCCESS PAGE ── */
+      .success-wrap {
+        text-align: center;
+        max-width: 520px;
+        margin: 80px auto;
+        padding: 52px 40px;
+        background: var(--white);
+        border-radius: 24px;
+        box-shadow: var(--shadow);
+        animation: fadeIn 0.5s ease;
+      }
+
+      .success-badge {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 36px;
+        margin: 0 auto 24px;
+        box-shadow: 0 8px 32px rgba(184, 150, 46, 0.3);
+      }
+
+      .success-title {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 40px;
+        font-weight: 300;
+        color: var(--dark);
+        margin-bottom: 12px;
+      }
+
+      .success-sub {
+        font-size: 14px;
+        color: var(--muted);
+        line-height: 1.7;
+        margin-bottom: 32px;
+      }
+
+      .booking-summary-box {
+        background: var(--cream);
+        border-radius: 12px;
+        padding: 20px;
+        text-align: left;
+        margin-bottom: 28px;
+      }
+
+      .bs-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(184, 150, 46, 0.1);
+        font-size: 13px;
+      }
+
+      .bs-row:last-child {
+        border-bottom: none;
+      }
+      .bs-row .key {
+        color: var(--muted);
+      }
+      .bs-row .val {
+        font-weight: 500;
+        color: var(--dark);
+        font-family: "Cormorant Garamond", serif;
+        font-size: 15px;
+      }
+
+      .success-btn {
+        padding: 14px 36px;
+        background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+        color: var(--white);
+        border: none;
+        border-radius: 12px;
+        font-size: 13px;
+        cursor: pointer;
+        font-family: "DM Sans", sans-serif;
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        transition: all 0.25s;
+        box-shadow: 0 4px 20px rgba(184, 150, 46, 0.3);
+      }
+
+      .success-btn:hover {
+        transform: translateY(-2px);
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        background: var(--cream-dark);
+        border-top: 1px solid rgba(184, 150, 46, 0.12);
+        padding: 48px;
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 2fr;
+        gap: 40px;
+      }
+
+      .footer-brand .brand-name {
+        font-family: "Cormorant Garamond", serif;
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--gold);
+        margin-bottom: 8px;
+      }
+
+      .footer-brand p {
+        font-size: 13px;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .footer-col h4 {
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text);
+        font-weight: 500;
+        margin-bottom: 16px;
+      }
+
+      .footer-col a {
+        display: block;
+        font-size: 13px;
+        color: var(--muted);
+        text-decoration: none;
+        margin-bottom: 8px;
+        transition: color 0.2s;
+      }
+
+      .footer-col a:hover {
+        color: var(--gold);
+      }
+
+      .newsletter-input-wrap {
+        display: flex;
+        border: 1px solid rgba(184, 150, 46, 0.3);
+        border-radius: 8px;
+        overflow: hidden;
+        background: var(--white);
+      }
+
+      .newsletter-input {
+        flex: 1;
+        padding: 12px 14px;
+        border: none;
+        outline: none;
+        font-size: 13px;
+        font-family: "DM Sans", sans-serif;
+        background: transparent;
+        color: var(--text);
+      }
+
+      .newsletter-btn {
+        padding: 12px 16px;
+        background: var(--gold);
+        color: var(--white);
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background 0.2s;
+      }
+
+      .newsletter-btn:hover {
+        background: var(--gold-dark);
+      }
+      .copyright {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 12px;
+      }
+
+      @media (max-width: 768px) {
+        .booking-layout {
+          grid-template-columns: 1fr;
+        }
+        .summary-sidebar {
+          position: static;
+        }
+        .pro-grid {
+          grid-template-columns: 1fr;
+        }
+        footer {
+          grid-template-columns: 1fr 1fr;
+        }
+        nav {
+          padding: 0 20px;
+        }
+        .container {
+          padding: 32px 16px 60px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAV -->
+    <nav class="navbar">
+      <a href="../index.html" class="logo">
+        <div class="logo-icon">
+          <img src="../IMG/logo antonela art.png" alt="Antonela Art" />
         </div>
-
-        <!-- STEP 2: PROFESSIONAL -->
-        <div class="step-block">
-          <div class="step-label">2. Elige a tu Profesional</div>
-          <div class="pro-grid">
-            <div class="pro-item" onclick="selectPro(this, 'Adriana Velasco')">
-              <div class="pro-avatar">👩‍🎨</div>
-              <div class="pro-info">
-                <div class="pro-name">Adriana Velasco</div>
-                <div class="pro-role">Masterstylist</div>
-              </div>
-              <div class="pro-check">✓</div>
-            </div>
-            <div class="pro-item" onclick="selectPro(this, 'Julian Rossi')">
-              <div class="pro-avatar">👨‍🎨</div>
-              <div class="pro-info">
-                <div class="pro-name">Julian Rossi</div>
-                <div class="pro-role">Colorexpert</div>
-              </div>
-              <div class="pro-check">✓</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- STEP 3: DATE & TIME -->
-        <div class="step-block">
-          <div class="step-label">3. Fecha y Hora</div>
-          <div class="calendar-wrap">
-            <div class="cal-header">
-              <button class="cal-nav-btn" onclick="prevMonth()">‹</button>
-              <div class="cal-title" id="cal-title">Octubre 2025</div>
-              <button class="cal-nav-btn" onclick="nextMonth()">›</button>
-            </div>
-            <div class="cal-grid" id="cal-grid">
-              <!-- generated by JS -->
-            </div>
-          </div>
-
-          <div class="time-grid" id="time-grid">
-            <div class="time-slot" onclick="selectTime(this, '09:00 AM')">09:00 AM</div>
-            <div class="time-slot" onclick="selectTime(this, '10:30 AM')">10:30 AM</div>
-            <div class="time-slot" onclick="selectTime(this, '12:00 PM')">12:00 PM</div>
-            <div class="time-slot" onclick="selectTime(this, '02:30 PM')">02:30 PM</div>
-            <div class="time-slot" onclick="selectTime(this, '04:00 PM')">04:00 PM</div>
-            <div class="time-slot" onclick="selectTime(this, '05:30 PM')">05:30 PM</div>
-          </div>
-        </div>
-
+        Antonela Art
+      </a>
+      <ul class="nav-links">
+        <li><a href="servicios.html" class="active">Servicios</a></li>
+        <li><a href="productos.html">Productos</a></li>
+        <li><a href="Carrito de compras.html">Carrito</a></li>
+      </ul>
+      <div class="nav-icons">
+        <a href="Carrito de compras.html"><i class="bi bi-bag"></i></a>
+        <a href="login.html"><i class="bi bi-person"></i></a>
       </div>
+    </nav>
 
-      <!-- RIGHT: SUMMARY -->
-      <div class="summary-sidebar">
-        <div class="summary-card">
-          <div class="summary-top-label">Resumen</div>
+    <!-- ============================== PAGE 1: BOOKING ============================== -->
+    <div class="page active" id="page-booking">
+      <div class="container">
+        <div class="booking-header">
+          <h1>Reserva tu Cita</h1>
+          <p>Reserva tu experiencia personalizada en unos pocos pasos.</p>
+        </div>
 
-          <div class="summary-field">
-            <div class="summary-field-label">Servicio</div>
-            <div class="summary-field-val" id="sum-service" class="placeholder">—</div>
+        <div class="booking-layout">
+          <!-- LEFT: STEPS -->
+          <div class="booking-steps">
+            <!-- STEP 1: SERVICE -->
+            <div class="step-block">
+              <div class="step-label">1. Selecciona un Servicio</div>
+              <div class="service-list">
+                <div
+                  class="service-item"
+                  onclick="selectService(this, 'Corte & Styling Premium', 120)"
+                  data-price="120"
+                >
+                  <div>
+                    <div class="svc-name">Corte &amp; Styling Premium</div>
+                    <div class="svc-meta">90 min · S/120.00</div>
+                  </div>
+                  <div class="check">✓</div>
+                </div>
+                <div
+                  class="service-item"
+                  onclick="selectService(this, 'Coloración Orgánica', 150)"
+                  data-price="150"
+                >
+                  <div>
+                    <div class="svc-name">Coloración Orgánica</div>
+                    <div class="svc-meta">120 min · S/150.00</div>
+                  </div>
+                  <div class="check">✓</div>
+                </div>
+                <div
+                  class="service-item"
+                  onclick="selectService(this, 'Tratamiento Hidratante', 85)"
+                  data-price="85"
+                >
+                  <div>
+                    <div class="svc-name">Tratamiento Hidratante</div>
+                    <div class="svc-meta">45 min · S/85.00</div>
+                  </div>
+                  <div class="check">✓</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 2: PROFESSIONAL -->
+            <div class="step-block">
+              <div class="step-label">2. Elige a tu Profesional</div>
+              <div class="pro-grid">
+                <div
+                  class="pro-item"
+                  onclick="selectPro(this, 'Adriana Velasco')"
+                >
+                  <div class="pro-avatar">👩‍🎨</div>
+                  <div class="pro-info">
+                    <div class="pro-name">Adriana Velasco</div>
+                    <div class="pro-role">Masterstylist</div>
+                  </div>
+                  <div class="pro-check">✓</div>
+                </div>
+                <div class="pro-item" onclick="selectPro(this, 'Julian Rossi')">
+                  <div class="pro-avatar">👨‍🎨</div>
+                  <div class="pro-info">
+                    <div class="pro-name">Julian Rossi</div>
+                    <div class="pro-role">Colorexpert</div>
+                  </div>
+                  <div class="pro-check">✓</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- STEP 3: DATE & TIME -->
+            <div class="step-block">
+              <div class="step-label">3. Fecha y Hora</div>
+              <div class="calendar-wrap">
+                <div class="cal-header">
+                  <button class="cal-nav-btn" onclick="prevMonth()">‹</button>
+                  <div class="cal-title" id="cal-title">Octubre 2025</div>
+                  <button class="cal-nav-btn" onclick="nextMonth()">›</button>
+                </div>
+                <div class="cal-grid" id="cal-grid">
+                  <!-- generated by JS -->
+                </div>
+              </div>
+
+              <div class="time-grid" id="time-grid">
+                <div class="time-slot" onclick="selectTime(this, '09:00 AM')">
+                  09:00 AM
+                </div>
+                <div class="time-slot" onclick="selectTime(this, '10:30 AM')">
+                  10:30 AM
+                </div>
+                <div class="time-slot" onclick="selectTime(this, '12:00 PM')">
+                  12:00 PM
+                </div>
+                <div class="time-slot" onclick="selectTime(this, '02:30 PM')">
+                  02:30 PM
+                </div>
+                <div class="time-slot" onclick="selectTime(this, '04:00 PM')">
+                  04:00 PM
+                </div>
+                <div class="time-slot" onclick="selectTime(this, '05:30 PM')">
+                  05:30 PM
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="summary-field">
-            <div class="summary-field-label">Profesional</div>
-            <div class="summary-field-val" id="sum-pro">—</div>
+          <!-- RIGHT: SUMMARY -->
+          <div class="summary-sidebar">
+            <div class="summary-card">
+              <div class="summary-top-label">Resumen</div>
+
+              <div class="summary-field">
+                <div class="summary-field-label">Servicio</div>
+                <div
+                  class="summary-field-val"
+                  id="sum-service"
+                  class="placeholder"
+                >
+                  —
+                </div>
+              </div>
+
+              <div class="summary-field">
+                <div class="summary-field-label">Profesional</div>
+                <div class="summary-field-val" id="sum-pro">—</div>
+              </div>
+
+              <div class="summary-field">
+                <div class="summary-field-label">Fecha</div>
+                <div class="summary-field-val" id="sum-date">—</div>
+              </div>
+
+              <hr class="summary-divider" />
+
+              <div class="summary-total-row">
+                <div class="summary-total-lbl">Total</div>
+                <div class="summary-total-amt" id="sum-total">S/0.00</div>
+              </div>
+
+              <button
+                class="confirm-btn"
+                id="confirm-btn"
+                disabled
+                onclick="goToSuccess()"
+              >
+                Confirmar Reserva
+              </button>
+
+              <div class="cancel-note">
+                Al confirmar, aceptas nuestras políticas de cancelación.
+                Cancelación gratuita hasta 24h antes.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================== PAGE 2: SUCCESS ============================== -->
+    <div class="page" id="page-success">
+      <div class="container">
+        <div class="success-wrap">
+          <div class="success-badge">✨</div>
+          <div class="success-title">¡Cita Confirmada!</div>
+          <div class="success-sub">
+            Tu reserva ha sido registrada exitosamente. Recibirás un
+            recordatorio por WhatsApp 24 horas antes de tu cita.
           </div>
 
-          <div class="summary-field">
-            <div class="summary-field-label">Fecha</div>
-            <div class="summary-field-val" id="sum-date">—</div>
+          <div class="booking-summary-box">
+            <div class="bs-row">
+              <span class="key">Servicio</span>
+              <span class="val" id="sc-service">—</span>
+            </div>
+            <div class="bs-row">
+              <span class="key">Profesional</span>
+              <span class="val" id="sc-pro">—</span>
+            </div>
+            <div class="bs-row">
+              <span class="key">Fecha y Hora</span>
+              <span class="val" id="sc-date">—</span>
+            </div>
+            <div class="bs-row">
+              <span class="key">Total</span>
+              <span class="val" id="sc-total" style="color: var(--gold)"
+                >—</span
+              >
+            </div>
           </div>
 
-          <hr class="summary-divider">
-
-          <div class="summary-total-row">
-            <div class="summary-total-lbl">Total</div>
-            <div class="summary-total-amt" id="sum-total">S/0.00</div>
-          </div>
-
-          <button class="confirm-btn" id="confirm-btn" disabled onclick="goToSuccess()">
-            Confirmar Reserva
+          <button class="success-btn" onclick="resetFlow()">
+            Nueva Reserva
           </button>
-
-          <div class="cancel-note">
-            Al confirmar, aceptas nuestras políticas de cancelación. Cancelación gratuita hasta 24h antes.
-          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- ============================== PAGE 2: SUCCESS ============================== -->
-<div class="page" id="page-success">
-  <div class="container">
-    <div class="success-wrap">
-      <div class="success-badge">✨</div>
-      <div class="success-title">¡Cita Confirmada!</div>
-      <div class="success-sub">
-        Tu reserva ha sido registrada exitosamente. Recibirás un recordatorio por WhatsApp 24 horas antes de tu cita.
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-brand">
+        <div class="brand-name">Antonela Art</div>
+        <p>
+          Elevando la belleza a una forma de arte. Productos curados para la
+          piel más exigente.
+        </p>
       </div>
-
-      <div class="booking-summary-box">
-        <div class="bs-row">
-          <span class="key">Servicio</span>
-          <span class="val" id="sc-service">—</span>
-        </div>
-        <div class="bs-row">
-          <span class="key">Profesional</span>
-          <span class="val" id="sc-pro">—</span>
-        </div>
-        <div class="bs-row">
-          <span class="key">Fecha y Hora</span>
-          <span class="val" id="sc-date">—</span>
-        </div>
-        <div class="bs-row">
-          <span class="key">Total</span>
-          <span class="val" id="sc-total" style="color:var(--gold)">—</span>
-        </div>
+      <div class="footer-col">
+        <h4>Servicio</h4>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
       </div>
+      <div class="footer-col">
+        <h4>Tienda</h4>
+        <a href="#">Shipping &amp; Returns</a>
+        <a href="#">Contact Us</a>
+      </div>
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <div class="newsletter-input-wrap">
+          <input type="email" class="newsletter-input" placeholder="Tu email" />
+          <button class="newsletter-btn">→</button>
+        </div>
+        <div class="copyright">© 2024 Antonela Art. All rights reserved.</div>
+      </div>
+    </footer>
 
-      <button class="success-btn" onclick="resetFlow()">Nueva Reserva</button>
-    </div>
-  </div>
-</div>
+    <script>
+      // ─── STATE ────────────────────────────────────────────────
+      const state = {
+        service: null,
+        servicePrice: 0,
+        pro: null,
+        date: null,
+        time: null,
+      };
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-brand">
-    <div class="brand-name">Antonela Art</div>
-    <p>Elevando la belleza a una forma de arte. Productos curados para la piel más exigente.</p>
-  </div>
-  <div class="footer-col">
-    <h4>Servicio</h4>
-    <a href="#">Privacy Policy</a>
-    <a href="#">Terms of Service</a>
-  </div>
-  <div class="footer-col">
-    <h4>Tienda</h4>
-    <a href="#">Shipping &amp; Returns</a>
-    <a href="#">Contact Us</a>
-  </div>
-  <div class="footer-col">
-    <h4>Newsletter</h4>
-    <div class="newsletter-input-wrap">
-      <input type="email" class="newsletter-input" placeholder="Tu email">
-      <button class="newsletter-btn">→</button>
-    </div>
-    <div class="copyright">© 2024 Antonela Art. All rights reserved.</div>
-  </div>
-</footer>
+      // ─── CALENDAR ────────────────────────────────────────────
+      const MONTHS = [
+        "Enero",
+        "Febrero",
+        "Marzo",
+        "Abril",
+        "Mayo",
+        "Junio",
+        "Julio",
+        "Agosto",
+        "Septiembre",
+        "Octubre",
+        "Noviembre",
+        "Diciembre",
+      ];
+      const DAYS = ["LU", "MA", "MI", "JU", "VI", "SA", "DO"];
 
-<script>
-  // ─── STATE ────────────────────────────────────────────────
-  const state = {
-    service: null,
-    servicePrice: 0,
-    pro: null,
-    date: null,
-    time: null
-  };
+      let calYear = 2025;
+      let calMonth = 9; // 0-indexed → octubre
 
-  // ─── CALENDAR ────────────────────────────────────────────
-  const MONTHS = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
-                  'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-  const DAYS   = ['LU','MA','MI','JU','VI','SA','DO'];
+      function renderCalendar() {
+        document.getElementById("cal-title").textContent =
+          MONTHS[calMonth] + " " + calYear;
+        const grid = document.getElementById("cal-grid");
+        grid.innerHTML = "";
 
-  let calYear  = 2025;
-  let calMonth = 9; // 0-indexed → octubre
+        // Headers
+        DAYS.forEach((d) => {
+          const el = document.createElement("div");
+          el.className = "cal-day-header";
+          el.textContent = d;
+          grid.appendChild(el);
+        });
 
-  function renderCalendar() {
-    document.getElementById('cal-title').textContent = MONTHS[calMonth] + ' ' + calYear;
-    const grid = document.getElementById('cal-grid');
-    grid.innerHTML = '';
+        // First day of month (0=Sun → convert to Mon-based)
+        const first = new Date(calYear, calMonth, 1).getDay();
+        const offset = first === 0 ? 6 : first - 1;
 
-    // Headers
-    DAYS.forEach(d => {
-      const el = document.createElement('div');
-      el.className = 'cal-day-header';
-      el.textContent = d;
-      grid.appendChild(el);
-    });
+        // Days in prev month fill
+        for (let i = 0; i < offset; i++) {
+          const el = document.createElement("div");
+          el.className = "cal-day empty disabled";
+          const prevDays = new Date(calYear, calMonth, 0).getDate();
+          el.textContent = prevDays - offset + i + 1;
+          grid.appendChild(el);
+        }
 
-    // First day of month (0=Sun → convert to Mon-based)
-    const first = new Date(calYear, calMonth, 1).getDay();
-    const offset = (first === 0) ? 6 : first - 1;
+        const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+        const today = new Date();
 
-    // Days in prev month fill
-    for (let i = 0; i < offset; i++) {
-      const el = document.createElement('div');
-      el.className = 'cal-day empty disabled';
-      const prevDays = new Date(calYear, calMonth, 0).getDate();
-      el.textContent = prevDays - offset + i + 1;
-      grid.appendChild(el);
-    }
+        for (let d = 1; d <= daysInMonth; d++) {
+          const el = document.createElement("div");
+          el.className = "cal-day";
+          el.textContent = d;
 
-    const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
-    const today = new Date();
+          const thisDate = new Date(calYear, calMonth, d);
+          if (
+            thisDate <
+            new Date(today.getFullYear(), today.getMonth(), today.getDate())
+          ) {
+            el.classList.add("disabled");
+          } else {
+            el.onclick = () => selectDay(el, d);
+          }
 
-    for (let d = 1; d <= daysInMonth; d++) {
-      const el = document.createElement('div');
-      el.className = 'cal-day';
-      el.textContent = d;
+          // Mark today
+          if (
+            d === today.getDate() &&
+            calMonth === today.getMonth() &&
+            calYear === today.getFullYear()
+          ) {
+            el.classList.add("today");
+          }
 
-      const thisDate = new Date(calYear, calMonth, d);
-      if (thisDate < new Date(today.getFullYear(), today.getMonth(), today.getDate())) {
-        el.classList.add('disabled');
-      } else {
-        el.onclick = () => selectDay(el, d);
+          // Re-select if same
+          if (
+            state.date &&
+            state.date.d === d &&
+            state.date.m === calMonth &&
+            state.date.y === calYear
+          ) {
+            el.classList.add("selected");
+          }
+
+          grid.appendChild(el);
+        }
       }
 
-      // Mark today
-      if (d === today.getDate() && calMonth === today.getMonth() && calYear === today.getFullYear()) {
-        el.classList.add('today');
+      function prevMonth() {
+        calMonth--;
+        if (calMonth < 0) {
+          calMonth = 11;
+          calYear--;
+        }
+        renderCalendar();
       }
 
-      // Re-select if same
-      if (state.date && state.date.d === d && state.date.m === calMonth && state.date.y === calYear) {
-        el.classList.add('selected');
+      function nextMonth() {
+        calMonth++;
+        if (calMonth > 11) {
+          calMonth = 0;
+          calYear++;
+        }
+        renderCalendar();
       }
 
-      grid.appendChild(el);
-    }
-  }
+      function selectDay(el, day) {
+        document
+          .querySelectorAll(".cal-day.selected")
+          .forEach((e) => e.classList.remove("selected"));
+        el.classList.add("selected");
+        state.date = { d: day, m: calMonth, y: calYear };
+        updateSummary();
+      }
 
-  function prevMonth() {
-    calMonth--;
-    if (calMonth < 0) { calMonth = 11; calYear--; }
-    renderCalendar();
-  }
+      // ─── SERVICE ─────────────────────────────────────────────
+      function selectService(el, name, price) {
+        document
+          .querySelectorAll(".service-item.selected")
+          .forEach((e) => e.classList.remove("selected"));
+        el.classList.add("selected");
+        state.service = name;
+        state.servicePrice = price;
+        updateSummary();
+      }
 
-  function nextMonth() {
-    calMonth++;
-    if (calMonth > 11) { calMonth = 0; calYear++; }
-    renderCalendar();
-  }
+      // ─── PRO ─────────────────────────────────────────────────
+      function selectPro(el, name) {
+        document
+          .querySelectorAll(".pro-item.selected")
+          .forEach((e) => e.classList.remove("selected"));
+        el.classList.add("selected");
+        state.pro = name;
+        updateSummary();
+      }
 
-  function selectDay(el, day) {
-    document.querySelectorAll('.cal-day.selected').forEach(e => e.classList.remove('selected'));
-    el.classList.add('selected');
-    state.date = { d: day, m: calMonth, y: calYear };
-    updateSummary();
-  }
+      // ─── TIME ────────────────────────────────────────────────
+      function selectTime(el, time) {
+        document
+          .querySelectorAll(".time-slot.selected")
+          .forEach((e) => e.classList.remove("selected"));
+        el.classList.add("selected");
+        state.time = time;
+        updateSummary();
+      }
 
-  // ─── SERVICE ─────────────────────────────────────────────
-  function selectService(el, name, price) {
-    document.querySelectorAll('.service-item.selected').forEach(e => e.classList.remove('selected'));
-    el.classList.add('selected');
-    state.service = name;
-    state.servicePrice = price;
-    updateSummary();
-  }
+      // ─── SUMMARY UPDATE ──────────────────────────────────────
+      function updateSummary() {
+        const svcEl = document.getElementById("sum-service");
+        const proEl = document.getElementById("sum-pro");
+        const dateEl = document.getElementById("sum-date");
+        const totalEl = document.getElementById("sum-total");
+        const btn = document.getElementById("confirm-btn");
 
-  // ─── PRO ─────────────────────────────────────────────────
-  function selectPro(el, name) {
-    document.querySelectorAll('.pro-item.selected').forEach(e => e.classList.remove('selected'));
-    el.classList.add('selected');
-    state.pro = name;
-    updateSummary();
-  }
+        svcEl.textContent = state.service || "—";
+        proEl.textContent = state.pro || "—";
+        totalEl.textContent =
+          state.servicePrice > 0
+            ? "S/" + state.servicePrice.toFixed(2)
+            : "S/0.00";
 
-  // ─── TIME ────────────────────────────────────────────────
-  function selectTime(el, time) {
-    document.querySelectorAll('.time-slot.selected').forEach(e => e.classList.remove('selected'));
-    el.classList.add('selected');
-    state.time = time;
-    updateSummary();
-  }
+        if (state.date && state.time) {
+          dateEl.textContent =
+            state.date.d +
+            " " +
+            MONTHS[state.date.m] +
+            ", " +
+            state.date.y +
+            " – " +
+            state.time;
+        } else if (state.date) {
+          dateEl.textContent =
+            state.date.d + " " + MONTHS[state.date.m] + ", " + state.date.y;
+        } else {
+          dateEl.textContent = "—";
+        }
 
-  // ─── SUMMARY UPDATE ──────────────────────────────────────
-  function updateSummary() {
-    const svcEl   = document.getElementById('sum-service');
-    const proEl   = document.getElementById('sum-pro');
-    const dateEl  = document.getElementById('sum-date');
-    const totalEl = document.getElementById('sum-total');
-    const btn     = document.getElementById('confirm-btn');
+        // Enable button when all filled
+        const allDone = state.service && state.pro && state.date && state.time;
+        btn.disabled = !allDone;
+      }
 
-    svcEl.textContent  = state.service || '—';
-    proEl.textContent  = state.pro     || '—';
-    totalEl.textContent = state.servicePrice > 0
-      ? 'S/' + state.servicePrice.toFixed(2)
-      : 'S/0.00';
+      // ─── NAVIGATION ──────────────────────────────────────────
+      function showPage(id) {
+        document
+          .querySelectorAll(".page")
+          .forEach((p) => p.classList.remove("active"));
+        document.getElementById("page-" + id).classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
 
-    if (state.date && state.time) {
-      dateEl.textContent = state.date.d + ' ' + MONTHS[state.date.m] + ', ' + state.date.y + ' – ' + state.time;
-    } else if (state.date) {
-      dateEl.textContent = state.date.d + ' ' + MONTHS[state.date.m] + ', ' + state.date.y;
-    } else {
-      dateEl.textContent = '—';
-    }
+      function goToSuccess() {
+        // Populate success card
+        document.getElementById("sc-service").textContent = state.service;
+        document.getElementById("sc-pro").textContent = state.pro;
+        document.getElementById("sc-total").textContent =
+          "S/" + state.servicePrice.toFixed(2);
+        document.getElementById("sc-date").textContent =
+          state.date.d +
+          " " +
+          MONTHS[state.date.m] +
+          ", " +
+          state.date.y +
+          " · " +
+          state.time;
+        showPage("success");
+      }
 
-    // Enable button when all filled
-    const allDone = state.service && state.pro && state.date && state.time;
-    btn.disabled = !allDone;
-  }
+      function resetFlow() {
+        // Reset state
+        state.service = null;
+        state.servicePrice = 0;
+        state.pro = null;
+        state.date = null;
+        state.time = null;
+        document
+          .querySelectorAll(
+            ".service-item.selected, .pro-item.selected, .time-slot.selected",
+          )
+          .forEach((e) => e.classList.remove("selected"));
+        document
+          .querySelectorAll(".cal-day.selected")
+          .forEach((e) => e.classList.remove("selected"));
+        updateSummary();
+        showPage("booking");
+      }
 
-  // ─── NAVIGATION ──────────────────────────────────────────
-  function showPage(id) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.getElementById('page-' + id).classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  function goToSuccess() {
-    // Populate success card
-    document.getElementById('sc-service').textContent = state.service;
-    document.getElementById('sc-pro').textContent     = state.pro;
-    document.getElementById('sc-total').textContent   = 'S/' + state.servicePrice.toFixed(2);
-    document.getElementById('sc-date').textContent    =
-      state.date.d + ' ' + MONTHS[state.date.m] + ', ' + state.date.y + ' · ' + state.time;
-    showPage('success');
-  }
-
-  function resetFlow() {
-    // Reset state
-    state.service = null; state.servicePrice = 0;
-    state.pro = null; state.date = null; state.time = null;
-    document.querySelectorAll('.service-item.selected, .pro-item.selected, .time-slot.selected')
-      .forEach(e => e.classList.remove('selected'));
-    document.querySelectorAll('.cal-day.selected')
-      .forEach(e => e.classList.remove('selected'));
-    updateSummary();
-    showPage('booking');
-  }
-
-  // ─── INIT ────────────────────────────────────────────────
-  renderCalendar();
-  updateSummary();
-</script>
-</body>
+      // ─── INIT ────────────────────────────────────────────────
+      renderCalendar();
+      updateSummary();
+    </script>
+  </body>
 </html>
