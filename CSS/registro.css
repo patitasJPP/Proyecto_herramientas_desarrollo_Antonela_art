@@ -1,21 +1,28 @@
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-:root {
-  --gold:      #C9A84C;
-  --gold-dark: #A07830;
-  --cream:     #FDFAF3;
-  --panel-bg:  #FEFBF3;
-  --text-dark: #1A1612;
-  --text-mid:  #5C5040;
-  --text-soft: #9B8C78;
-  --border:    #E2D5BC;
-  --input-bg:  #FDFAF4;
-  --shadow:    rgba(120,80,20,0.10);
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-html, body {
+:root {
+  --gold: #c9a84c;
+  --gold-dark: #a07830;
+  --cream: #fdfaf3;
+  --panel-bg: #fefbf3;
+  --text-dark: #1a1612;
+  --text-mid: #5c5040;
+  --text-soft: #9b8c78;
+  --border: #e2d5bc;
+  --input-bg: #fdfaf4;
+  --shadow: rgba(120, 80, 20, 0.1);
+}
+
+html,
+body {
   height: 100%;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   background: var(--cream);
   color: var(--text-dark);
 }
@@ -30,7 +37,8 @@ body {
   width: 46%;
   position: relative;
   overflow: hidden;
-  background: url('https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=80') center/cover no-repeat;
+  background: url("https://images.unsplash.com/photo-1560066984-138dadb4c035?w=900&q=80")
+    center/cover no-repeat;
   display: flex;
   align-items: flex-end;
   padding: 2.5rem;
@@ -41,9 +49,9 @@ body {
   inset: 0;
   background: linear-gradient(
     to top,
-    rgba(20,14,8,0.72) 0%,
-    rgba(20,14,8,0.25) 55%,
-    rgba(20,14,8,0.08) 100%
+    rgba(20, 14, 8, 0.72) 0%,
+    rgba(20, 14, 8, 0.25) 55%,
+    rgba(20, 14, 8, 0.08) 100%
   );
 }
 
@@ -54,7 +62,7 @@ body {
 }
 
 .brand-info h2 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: "Cormorant Garamond", serif;
   font-size: 2.4rem;
   font-weight: 400;
   margin-bottom: 0.7rem;
@@ -65,7 +73,7 @@ body {
   font-size: 0.8rem;
   font-weight: 300;
   line-height: 1.7;
-  color: rgba(255,255,255,0.80);
+  color: rgba(255, 255, 255, 0.8);
   max-width: 320px;
   margin-bottom: 1.8rem;
 }
@@ -78,9 +86,11 @@ body {
 .dots span {
   height: 3px;
   border-radius: 2px;
-  background: rgba(255,255,255,0.35);
+  background: rgba(255, 255, 255, 0.35);
   width: 28px;
-  transition: background 0.3s, width 0.3s;
+  transition:
+    background 0.3s,
+    width 0.3s;
 }
 
 .dots span.active {
@@ -103,7 +113,7 @@ body {
 .register-box {
   width: 100%;
   max-width: 420px;
-  animation: slideUp 0.7s cubic-bezier(0.22,1,0.36,1) both;
+  animation: slideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .eyebrow {
@@ -116,7 +126,7 @@ body {
 }
 
 .register-box h1 {
-  font-family: 'Cormorant Garamond', serif;
+  font-family: "Cormorant Garamond", serif;
   font-size: 2.6rem;
   font-weight: 400;
   color: var(--text-dark);
@@ -133,7 +143,9 @@ body {
 }
 
 /* ─── FORM GROUPS ─── */
-.form-group { margin-bottom: 1.2rem; }
+.form-group {
+  margin-bottom: 1.2rem;
+}
 
 .form-row-2 {
   display: grid;
@@ -151,7 +163,9 @@ label {
   margin-bottom: 0.45rem;
 }
 
-.input-wrapper { position: relative; }
+.input-wrapper {
+  position: relative;
+}
 
 input[type="text"],
 input[type="email"],
@@ -162,7 +176,7 @@ input[type="password"] {
   border: none;
   border-bottom: 1.5px solid var(--border);
   padding: 0.6rem 2rem 0.6rem 0;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.83rem;
   color: var(--text-dark);
   outline: none;
@@ -170,9 +184,13 @@ input[type="password"] {
   border-radius: 0;
 }
 
-input::placeholder { color: var(--border); }
+input::placeholder {
+  color: var(--border);
+}
 
-input:focus { border-color: var(--gold); }
+input:focus {
+  border-color: var(--gold);
+}
 
 .input-icon {
   position: absolute;
@@ -184,7 +202,9 @@ input:focus { border-color: var(--gold); }
   transition: color 0.2s;
   line-height: 1;
 }
-.input-icon:hover { color: var(--gold); }
+.input-icon:hover {
+  color: var(--gold);
+}
 
 /* ─── TERMS ─── */
 .terms-row {
@@ -210,10 +230,13 @@ input:focus { border-color: var(--gold); }
   text-decoration: none;
   font-weight: 500;
 }
-.checkbox-label a:hover { color: var(--gold); }
+.checkbox-label a:hover {
+  color: var(--gold);
+}
 
 .custom-checkbox {
-  width: 16px; height: 16px;
+  width: 16px;
+  height: 16px;
   border: 1.5px solid var(--border);
   border-radius: 4px;
   background: var(--input-bg);
@@ -225,7 +248,9 @@ input:focus { border-color: var(--gold); }
   transition: all 0.2s;
 }
 
-input[type="checkbox"] { display: none; }
+input[type="checkbox"] {
+  display: none;
+}
 
 input[type="checkbox"]:checked + .checkbox-label .custom-checkbox {
   background: var(--gold);
@@ -233,8 +258,9 @@ input[type="checkbox"]:checked + .checkbox-label .custom-checkbox {
 }
 
 input[type="checkbox"]:checked + .checkbox-label .custom-checkbox::after {
-  content: '';
-  width: 8px; height: 5px;
+  content: "";
+  width: 8px;
+  height: 5px;
   border-left: 1.5px solid #fff;
   border-bottom: 1.5px solid #fff;
   transform: rotate(-45deg) translateY(-1px);
@@ -244,12 +270,12 @@ input[type="checkbox"]:checked + .checkbox-label .custom-checkbox::after {
 /* ─── BUTTON ─── */
 .btn-register {
   width: 100%;
-  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-  color: #fff;
-  border: none;
-  border-radius: 40px;
+  background: #1a1a1a;
+  color: #00ff88;
+  border: 2px solid #00ff88;
+  border-radius: 4px;
   padding: 1rem;
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.2em;
@@ -260,25 +286,33 @@ input[type="checkbox"]:checked + .checkbox-label .custom-checkbox::after {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  transition: transform 0.2s, box-shadow 0.2s;
-  box-shadow: 0 4px 18px rgba(160,120,48,0.35);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.2);
   margin-bottom: 1.8rem;
 }
 
 .btn-register:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(160,120,48,0.45);
+  background: #00ff88;
+  color: #1a1a1a;
+  box-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
 }
 
-.btn-register:active { transform: translateY(0); }
+.btn-register:active {
+  transform: translateY(0);
+}
 
-.btn-register.loading .btn-text { opacity: 0; }
-.btn-register.loading .spinner  { display: block; }
+.btn-register.loading .btn-text {
+  opacity: 0;
+}
+.btn-register.loading .spinner {
+  display: block;
+}
 
 .spinner {
   display: none;
-  width: 18px; height: 18px;
-  border: 2px solid rgba(255,255,255,0.35);
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.35);
   border-top-color: #fff;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
@@ -286,7 +320,8 @@ input[type="checkbox"]:checked + .checkbox-label .custom-checkbox::after {
 }
 
 /* ─── MENSAJES─── */
-.error-msg, .success-msg {
+.error-msg,
+.success-msg {
   border-radius: 8px;
   padding: 0.7rem 1rem;
   font-size: 0.75rem;
@@ -296,14 +331,14 @@ input[type="checkbox"]:checked + .checkbox-label .custom-checkbox::after {
 }
 
 .error-msg {
-  background: rgba(200,60,60,0.08);
-  border: 1px solid rgba(200,60,60,0.2);
+  background: rgba(200, 60, 60, 0.08);
+  border: 1px solid rgba(200, 60, 60, 0.2);
   color: #b03030;
 }
 
 .success-msg {
-  background: rgba(60,160,80,0.08);
-  border: 1px solid rgba(60,160,80,0.2);
+  background: rgba(60, 160, 80, 0.08);
+  border: 1px solid rgba(60, 160, 80, 0.2);
   color: #2a7a40;
 }
 
@@ -320,22 +355,45 @@ input[type="checkbox"]:checked + .checkbox-label .custom-checkbox::after {
   text-decoration: none;
   transition: color 0.2s;
 }
-.login-row a:hover { color: var(--gold); }
+.login-row a:hover {
+  color: var(--gold);
+}
 
 /* ─── ANIMACIONES ─── */
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(24px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ─── RESPONSIVE ─── */
 @media (max-width: 768px) {
-  body { flex-direction: column; }
-  .left-panel  { width: 100%; min-height: 220px; align-items: flex-end; }
-  .right-panel { width: 100%; border-left: none; border-top: 1px solid var(--border); padding: 2rem 1.5rem; }
-  .form-row-2  { grid-template-columns: 1fr; }
+  body {
+    flex-direction: column;
+  }
+  .left-panel {
+    width: 100%;
+    min-height: 220px;
+    align-items: flex-end;
+  }
+  .right-panel {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid var(--border);
+    padding: 2rem 1.5rem;
+  }
+  .form-row-2 {
+    grid-template-columns: 1fr;
+  }
 }
